@@ -1,16 +1,11 @@
 //dom 
-
 const viewBoard =document.querySelector('#app');
-
 const submit =document.querySelector('#submit');
 //api
 const url ='https://vue3-course-api.hexschool.io/';
 const path ="shang";
 
-
-//data
-
-
+//------------畫面畫面------------------------------
  submit.addEventListener("click",login);
 
  function login(){
@@ -31,13 +26,9 @@ const path ="shang";
           //帳號錯誤
           else{
             alert("你的帳號錯誤窩窩")
-          }
-    
-      
-    
-   }) 
- 
- }
+          }   
+   })  
+ //---------------------app-----------------------------------
 const app = {
   data:{
      products: [],
@@ -47,10 +38,8 @@ const app = {
      
       //把取得的data放進products
      this.products = res.data.products;
-     this.render();
-  
+     this.render();  
         })
-
   },
    //新增
  addNewProduct(){
@@ -71,34 +60,29 @@ const app = {
           },
         };
 
-        // #6 新增一個產品
+        //發出新增請求
        axios.post(`${url}api/${path}/admin/product`,product).then(res=>{
-       app.getProducts();
+         //重新取得商品資料
+        app.getProducts();
        })
-
-
  },
+ //刪除
   deleteProduct(e){
-   let deleteBtn =e.target;
- 
+   let deleteBtn =e.target; 
   //鎖定deletebtn
    if( deleteBtn.getAttribute("class").includes("deleteBtn") ){
      let productId =deleteBtn.dataset.id;
      //發出delete請求
-     axios.delete(`${url}api/${path}/admin/product/${productId}`).then(res=>{
-      
-      app.getProducts();
-
-      
+     axios.delete(`${url}api/${path}/admin/product/${productId}`).then(res=>{      
+      app.getProducts();      
      })
-   }
- 
+   } 
  },
-  init(){   
-    
+ //初始化
+  init(){       
      //取得cookie內的token
-
      const token = document.cookie.replace(/(?:(?:^|.*;\s*)hexToken\s*\=\s*([^;]*).*$)|^.*$/, "$1"); 
+    如果token已建立 //如果token已建立 
       if(token){
              //重新渲染成後台產品檢視模式
         let str =` <table class="table mt-4">
@@ -119,8 +103,7 @@ const app = {
                </th>
              </tr>
            </thead>
-           <tbody id="productList">
-           
+           <tbody id="productList">           
            </tbody>
          </table>
          <p>目前有 <span id="productCount">0</span> 項產品</p>               
@@ -133,11 +116,7 @@ const app = {
        //將token夾帶進axios的header中
         axios.defaults.headers.common.Authorization = token;
       this.getProducts()
-      }
-      
-   
-      
-      
+      }  
     
   },
   render(){
@@ -172,11 +151,11 @@ const app = {
   }
 };
 
-
-
-//驗證是否已是登入狀況
+//於初始時，判斷是否是登入狀況
+    //是，則渲染後台畫面
+    //否，渲染登入畫面，登入後在渲染成後台畫面
 app.init()
 
 
- //刪除
+ 
 
