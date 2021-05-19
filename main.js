@@ -5,7 +5,11 @@ const submit =document.querySelector('#submit');
 const url ='https://vue3-course-api.hexschool.io/';
 const path ="shang";
 
-//------------畫面畫面------------------------------
+//---------於初始時，判斷是否是登入狀況-------------------------------
+    //是，則渲染後台畫面
+    //否，渲染登入畫面，登入後在渲染成後台畫面
+app.init();
+//------------登入畫面------------------------------
  submit.addEventListener("click",login);
 
  function login(){
@@ -150,12 +154,3 @@ const app = {
         tableline.addEventListener('click',this.deleteProduct)
   }
 };
-
-//於初始時，判斷是否是登入狀況
-    //是，則渲染後台畫面
-    //否，渲染登入畫面，登入後在渲染成後台畫面
-app.init()
-
-
- 
-
